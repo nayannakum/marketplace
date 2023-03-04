@@ -26,17 +26,19 @@ public class AddressController {
 	
 	@GetMapping("/users/{userId}/addresses")
 	public List<Address> getAllAddressesByUserId(@PathVariable String userId) {
+		
+		//find user and if not throw exception
 	    return addressRepository.findByUserId(userId);
 	}
 	
 	@GetMapping("/users/{userId}/addresses/{addressId}")
 	public Address getAddressById(@PathVariable String userId, @PathVariable String addressId) {
-	    return addressRepository.findByIdAndUserId(addressId, userId).get();
+	    return addressRepository.findByIdAndUserId(addressId, userId).get(); // exception handle
 	}
 	
 	@PostMapping("/users/{userId}/addresses")
 	public Address createAddress(@PathVariable String userId, @RequestBody Address address) {
-		User user = userRepository.findById(userId).get();
+		User user = userRepository.findById(userId).get(); // exception handle
 	    address.setUser(user); // set the user ID in the address object
 	    return addressRepository.save(address);
 	}
