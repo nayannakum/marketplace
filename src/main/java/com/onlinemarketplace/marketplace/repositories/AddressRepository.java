@@ -1,6 +1,7 @@
 package com.onlinemarketplace.marketplace.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -16,6 +17,7 @@ public interface AddressRepository extends MongoRepository<Address, String> {
     @Query("{ 'user' : ?0 }")
     List<Address> findByUser(User user);
     
-    @Query("{ 'user.$id' : ?0 }")
-    List<Address> deleteByUserId(String userId);
+    @Query("{'id': ?0, 'user.id': ?1}")
+    Optional<Address> findByIdAndUserId(String addressId, String userId);
+    
 }
