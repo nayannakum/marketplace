@@ -20,8 +20,19 @@ public class User {
 	@DBRef
 	private List<Address> address;
 	
+	@DBRef
+	private List<OrderHistory> orderHistories;
 	
 	
+	
+
+	public List<OrderHistory> getOrderHistories() {
+		return orderHistories;
+	}
+
+	public void setOrderHistories(List<OrderHistory> orderHistories) {
+		this.orderHistories = orderHistories;
+	}
 
 	public User() {
 		super();
@@ -66,6 +77,12 @@ public class User {
 
 	public void setAddress(List<Address> address) {
 		this.address = address;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", gender=" + gender + ", address=" + address + ", orderHistories="
+				+ orderHistories + "]";
 	}
 	
 	

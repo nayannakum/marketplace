@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onlinemarketplace.marketplace.model.Order;
+import com.onlinemarketplace.marketplace.model.OrderHistory;
 import com.onlinemarketplace.marketplace.model.Product;
 import com.onlinemarketplace.marketplace.model.User;
+import com.onlinemarketplace.marketplace.repositories.OrderHistoryRepository;
 import com.onlinemarketplace.marketplace.repositories.OrderRepository;
 import com.onlinemarketplace.marketplace.repositories.ProductRepository;
 import com.onlinemarketplace.marketplace.repositories.UserRepository;
@@ -29,6 +31,7 @@ public class OrderController {
 	private UserRepository userRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired OrderHistoryRepository orderHistoryRepository;
 
 //	@PostMapping
 //	public Order createOrder(@RequestBody Order order) {
@@ -42,10 +45,43 @@ public class OrderController {
 //		return orderRepository.save(order);
 //	}
 
+//	@PostMapping("/users/{userId}/orders")
+//	public Order createOrder(@PathVariable String userId, @RequestBody Order order) {
+//	    // Find the user by ID and set it in the order object
+//	    User user = userRepository.findById(userId).orElse(null);                   // handle the exception
+//	    order.setUser(user);
+//
+//	    // Create a new list of products that will be updated with the latest product information
+//	    List<Product> updatedProducts = new ArrayList<>();
+//
+//	    // Iterate through the list of products in the order object
+//	    for (Product product : order.getProducts()) {
+//	        // Find the product by ID in the product repository
+//	        Product updatedProduct = productRepository.findById(product.getId()).orElse(null);   // exception
+//	        
+//	        // If the product exists in the repository, update its data in the order object
+//	        if (updatedProduct != null) {
+//	            // Set the product data in the order object
+//	            product.setProductName(updatedProduct.getProductName());
+//	            product.setProductPrice(updatedProduct.getProductPrice());
+//
+//	            // Add the updated product to the list of products
+//	            updatedProducts.add(product);
+//	        }
+//	    }
+//
+//	    // Set the updated list of products in the order object
+//	    order.setProducts(updatedProducts);
+//
+//	    // Save the order object to the order repository and return it
+//	    return orderRepository.save(order);
+//	}
+	
+	
 	@PostMapping("/users/{userId}/orders")
 	public Order createOrder(@PathVariable String userId, @RequestBody Order order) {
 	    // Find the user by ID and set it in the order object
-	    User user = userRepository.findById(userId).orElse(null);                   // handle the exception
+	    User user = userRepository.findById(userId).orElse(null);                          // handle exception
 	    order.setUser(user);
 
 	    // Create a new list of products that will be updated with the latest product information
@@ -54,10 +90,10 @@ public class OrderController {
 	    // Iterate through the list of products in the order object
 	    for (Product product : order.getProducts()) {
 	        // Find the product by ID in the product repository
-	        Product updatedProduct = productRepository.findById(product.getId()).orElse(null);   // exception
+	        Product updatedProduct = productRepository.findById(product.getId()).orElse(null);      // handle exception
 	        
 	        // If the product exists in the repository, update its data in the order object
-	        if (updatedProduct != null) {
+	        if (updatedProduct != null) {									
 	            // Set the product data in the order object
 	            product.setProductName(updatedProduct.getProductName());
 	            product.setProductPrice(updatedProduct.getProductPrice());
@@ -70,8 +106,27 @@ public class OrderController {
 	    // Set the updated list of products in the order object
 	    order.setProducts(updatedProducts);
 
-	    // Save the order object to the order repository and return it
-	    return orderRepository.save(order);
+	    // Save the order object to the order repository
+	    Order savedOrder = orderRepository.save(order);
+
+	    // Add the order to the user's order history
+	    OrderHistory orderHistory = orderHistoryRepository.findByUser(user);           //single object returning
+	    if (orderHistory == null) {
+	        orderHistory = new OrderHistory(user, new ArrayList<>());
+	    }
+	    List<Order> orders = orderHistory.getOrders();
+	    orders.add(savedOrder);
+	    orderHistoryRepository.save(orderHistory);
+	    
+//	    List<OrderHistory> orderHistories = orderHistoryRepository.findByUserId(userId);          // list of orderhistory
+//	    for (OrderHistory orderHistory : orderHistories) {
+//	        List<Order> orders = orderHistory.getOrders();
+//	        orders.add(savedOrder);
+//	        orderHistoryRepository.save(orderHistory);
+//	    }
+
+	    // Return the saved order object
+	    return savedOrder;
 	}
 
 	@GetMapping("/{id}")
