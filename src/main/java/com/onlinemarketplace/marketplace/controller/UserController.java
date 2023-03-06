@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onlinemarketplace.marketplace.model.Address;
+import com.onlinemarketplace.marketplace.model.OrderHistory;
 import com.onlinemarketplace.marketplace.model.User;
 import com.onlinemarketplace.marketplace.repositories.AddressRepository;
+import com.onlinemarketplace.marketplace.repositories.OrderHistoryRepository;
 import com.onlinemarketplace.marketplace.repositories.UserRepository;
 
 import springfox.documentation.annotations.ApiIgnore;
@@ -37,6 +39,7 @@ public class UserController {
 
 	@Autowired
 	AddressRepository addressRepository;
+	@Autowired OrderHistoryRepository orderHistoryRepository;
 
 	@PostMapping
 	public User createUser(@RequestBody User user) {
@@ -46,10 +49,10 @@ public class UserController {
 			user.getAddress().stream().forEach(address -> {
 				address.setUser(user);
 				addressRepository.save(address);
+				
+				
 			});
 		}
-		
-//		user.setAddress(addressRepository.findByUserId(user.getId()));
 		
 
 		return userRepository.save(user);
@@ -57,7 +60,11 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public User getUserById(@PathVariable String id) {
-		return userRepository.findById(id).get();
+		User user = userRepository.findById(id).get();
+		List<OrderHistory> findByUser = orderHistoryRepository.findByUser(user);
+		user.setOrderHistories(findByUser);
+		System.out.println(findByUser);
+		return user;
 	}
 
 	@PutMapping("/{id}")

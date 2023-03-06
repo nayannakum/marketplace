@@ -11,8 +11,12 @@ import com.onlinemarketplace.marketplace.model.User;
 
 public interface OrderHistoryRepository extends MongoRepository<OrderHistory, ObjectId> {
 
-	OrderHistory findByUser(User user);
+//		@Query("{ 'user' : ?0 }")
+//		OrderHistory findByUser(User user);
 	
-		@Query("{ 'user.id' : ?0 }")
-	    List<OrderHistory> findByUserId(String userId);
+//		@Query("{ 'user.id' : ?0 }")
+//	    List<OrderHistory> findByUser(User user);
+		
+//		OrderHistory findByUser(User user);
+		List<OrderHistory> findByUser(User user);
 }

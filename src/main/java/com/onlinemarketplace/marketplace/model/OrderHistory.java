@@ -1,5 +1,6 @@
 package com.onlinemarketplace.marketplace.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -7,15 +8,18 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Document(collection = "orderHistory")
 public class OrderHistory {
 
 	@Id
 	private ObjectId id;
 	@DBRef
+	@JsonIgnore
 	private User user;
 	@DBRef
-	private List<Order> orders;
+	private List<Order> orders = new ArrayList<Order>();
 
 	public ObjectId getId() {
 		return id;
@@ -45,6 +49,10 @@ public class OrderHistory {
 
 	public OrderHistory() {
 		super();
+	}
+
+	public OrderHistory(User user2, boolean add) {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
