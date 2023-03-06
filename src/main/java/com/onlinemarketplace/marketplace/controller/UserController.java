@@ -61,9 +61,9 @@ public class UserController {
 	@GetMapping("/{id}")
 	public User getUserById(@PathVariable String id) {
 		User user = userRepository.findById(id).get();
-		List<OrderHistory> findByUser = orderHistoryRepository.findByUser(user);
-		user.setOrderHistories(findByUser);
-		System.out.println(findByUser);
+//		List<OrderHistory> findByUser = orderHistoryRepository.findByUser(user);
+//		user.setOrderHistories(findByUser);
+//		System.out.println(findByUser);
 		return user;
 	}
 
