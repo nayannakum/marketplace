@@ -1,6 +1,7 @@
 package com.onlinemarketplace.marketplace.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -31,7 +32,8 @@ public class OrderController {
 	private UserRepository userRepository;
 	@Autowired
 	private ProductRepository productRepository;
-	@Autowired OrderHistoryRepository orderHistoryRepository;
+	@Autowired
+	OrderHistoryRepository orderHistoryRepository;
 
 //	@PostMapping
 //	public Order createOrder(@RequestBody Order order) {
@@ -76,48 +78,81 @@ public class OrderController {
 //	    // Save the order object to the order repository and return it
 //	    return orderRepository.save(order);
 //	}
-	
-	
+
 	@PostMapping("/users/{userId}/orders")
 	public Order createOrder(@PathVariable String userId, @RequestBody Order order) {
-	    // Find the user by ID and set it in the order object
-	    User user = userRepository.findById(userId).orElse(null);                          // handle exception
-	    order.setUser(user);
+		// Find the user by ID and set it in the order object
+		User user = userRepository.findById(userId).orElse(null); // handle exception
+		order.setUser(user);
 
-	    // Create a new list of products that will be updated with the latest product information
-	    List<Product> updatedProducts = new ArrayList<>();
+		// Create a new list of products that will be updated with the latest product
+		// information
+		List<Product> updatedProducts = new ArrayList<>();
 
-	    // Iterate through the list of products in the order object
-	    for (Product product : order.getProducts()) {
-	        // Find the product by ID in the product repository
-	        Product updatedProduct = productRepository.findById(product.getId()).orElse(null);      // handle exception
-	        
-	        // If the product exists in the repository, update its data in the order object
-	        if (updatedProduct != null) {									
-	            // Set the product data in the order object
-	            product.setProductName(updatedProduct.getProductName());
-	            product.setProductPrice(updatedProduct.getProductPrice());
+		// Iterate through the list of products in the order object
+		for (Product product : order.getProducts()) {
+			// Find the product by ID in the product repository
+			Product updatedProduct = productRepository.findById(product.getId()).orElse(null); // handle exception
 
-	            // Add the updated product to the list of products
-	            updatedProducts.add(product);
-	        }
-	    }
+			// If the product exists in the repository, update its data in the order object
+			if (updatedProduct != null) {
+				// Set the product data in the order object
+				product.setProductName(updatedProduct.getProductName());
+				product.setProductPrice(updatedProduct.getProductPrice());
 
-	    // Set the updated list of products in the order object
-	    order.setProducts(updatedProducts);
+				// Add the updated product to the list of products
+				updatedProducts.add(product);
+			}
+		}
 
-	    // Save the order object to the order repository
-	    Order savedOrder = orderRepository.save(order);
+		// Set the updated list of products in the order object
+		order.setProducts(updatedProducts);
 
-	    // Add the order to the user's order history
-	    OrderHistory orderHistory = orderHistoryRepository.findByUser(user);           //single object returning
-	    if (orderHistory == null) {
-	        orderHistory = new OrderHistory(user, new ArrayList<>());
-	    }
-	    List<Order> orders = orderHistory.getOrders();
-	    orders.add(savedOrder);
-	    orderHistoryRepository.save(orderHistory);
-	    
+		// Save the order object to the order repository
+		Order savedOrder = orderRepository.save(order);
+
+		// Add the order to the user's order history
+		List<OrderHistory> orderHistories = user.getOrderHistories(); // get the user's order histories
+		OrderHistory orderHistory = null; // declare a variable to store the OrderHistory object
+		if (orderHistories != null && orderHistories.size() > 0) {
+			// If the user has an existing order history, get the last one
+			orderHistory = orderHistories.get(orderHistories.size() - 1);
+		}
+
+		if (orderHistory == null) {
+			// If the user doesn't have an existing order history, create a new one and set
+			// it to the user
+			orderHistory = new OrderHistory();
+			orderHistory.setUser(user);
+			user.setOrderHistories(new ArrayList<>(Arrays.asList(orderHistory)));
+		}
+
+		// Add the savedOrder to the user's order history
+		orderHistory.getOrders().add(savedOrder);
+		orderHistoryRepository.save(orderHistory);
+		userRepository.save(user);
+
+		/*
+		 * // Add the order to the user's order history
+		 * 
+		 * OrderHistory orderHistory = new OrderHistory(); orderHistory.setUser(user);
+		 * if (orderHistory.getOrders() == null) { orderHistory = new OrderHistory(user,
+		 * new ArrayList<>().add(savedOrder)); }
+		 * orderHistory.getOrders().add(savedOrder); OrderHistory save =
+		 * orderHistoryRepository.save(orderHistory);
+		 * 
+		 * user.getOrderHistories().add(save);
+		 */
+
+//	    OrderHistory orderHistory = orderHistoryRepository.findByUser(user);           //single object returning
+//	    if (orderHistory == null) {
+//	        orderHistory = new OrderHistory(user, new ArrayList<>());
+//	    }
+//	    List<Order> orders = orderHistory.getOrders();
+//	    orders.add(savedOrder);
+//	    OrderHistory savedOrderHistory = orderHistoryRepository.save(orderHistory);
+//	    user.getOrderHistories().add(savedOrderHistory);
+
 //	    List<OrderHistory> orderHistories = orderHistoryRepository.findByUserId(userId);          // list of orderhistory
 //	    for (OrderHistory orderHistory : orderHistories) {
 //	        List<Order> orders = orderHistory.getOrders();
@@ -125,8 +160,8 @@ public class OrderController {
 //	        orderHistoryRepository.save(orderHistory);
 //	    }
 
-	    // Return the saved order object
-	    return savedOrder;
+		// Return the saved order object
+		return savedOrder;
 	}
 
 	@GetMapping("/{id}")

@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Document
 public class User {
@@ -21,9 +23,8 @@ public class User {
 	private List<Address> address;
 	
 	@DBRef
+	@JsonIgnore
 	private List<OrderHistory> orderHistories;
-	
-	
 	
 
 	public List<OrderHistory> getOrderHistories() {

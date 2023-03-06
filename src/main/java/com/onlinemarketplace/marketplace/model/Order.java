@@ -7,12 +7,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Document
 public class Order {
 
 	@Id
     private ObjectId id;
     @DBRef
+    @JsonIgnore
     private User user;
     @DBRef
     private List<Product> products;
