@@ -49,12 +49,8 @@ public class UserController {
 			user.getAddress().stream().forEach(address -> {
 				address.setUser(user);
 				addressRepository.save(address);
-				
-				
 			});
 		}
-		
-
 		return userRepository.save(user);
 	}
 
