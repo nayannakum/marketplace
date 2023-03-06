@@ -2,6 +2,7 @@ package com.onlinemarketplace.marketplace.model;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
 
 	@Id
-	private String id;
+	private ObjectId id;
 	
 	private String name;
 
@@ -39,7 +40,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String id, String name, String gender, List<com.onlinemarketplace.marketplace.model.Address> address) {
+	public User(ObjectId id, String name, String gender, List<com.onlinemarketplace.marketplace.model.Address> address) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -47,11 +48,11 @@ public class User {
 		this.address = address;
 	}
 
-	public String getId() {
+	public ObjectId getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 
