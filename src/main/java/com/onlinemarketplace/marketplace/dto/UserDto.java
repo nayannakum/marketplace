@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 public class UserDto {
 
@@ -14,7 +16,7 @@ public class UserDto {
 	private String gender;
 	
 	private List<AddressDto> address;
-	
+	@JsonIgnore
 	private List<OrderHistoryDto> orderHistories;
 
 	public ObjectId getId() {
