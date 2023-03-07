@@ -69,6 +69,8 @@ public class UserController {
 		userService.deleteUserById(id);
 		userRepository.deleteById(id);
 		return "user is deleted with id : " + id;
+		
+		
 	}
 
 }
