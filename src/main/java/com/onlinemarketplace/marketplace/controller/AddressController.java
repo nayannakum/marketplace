@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,20 +17,27 @@ import com.onlinemarketplace.marketplace.model.Address;
 import com.onlinemarketplace.marketplace.model.User;
 import com.onlinemarketplace.marketplace.repositories.AddressRepository;
 import com.onlinemarketplace.marketplace.repositories.UserRepository;
+import com.onlinemarketplace.marketplace.service.AddressService;
+import com.onlinemarketplace.marketplace.service.UserService;
 
 @RestController
 public class AddressController {
 
-	@Autowired
-	private AddressRepository addressRepository;
+//	@Autowired
+//	private AddressRepository addressRepository;
+//	
+//	@Autowired UserRepository userRepository;
 	
-	@Autowired UserRepository userRepository;
+	@Autowired UserService userService;
+	
+	@Autowired AddressService addressService;
+	
 	
 	@GetMapping("/users/{userId}/addresses")
-	public List<Address> getAllAddressesByUserId(@PathVariable String userId) {
+	public  ResponseEntity <List<Address>> getAllAddressesByUserId(@PathVariable String userId) {
 		
 		//find user and if not throw exception
-	    return addressRepository.findByUserId(userId);
+	    return new ResponseEntity<List<Address>>(addressService.findByUserId(userId), HttpStatus.OK);
 	}
 	
 	@GetMapping("/users/{userId}/addresses/{addressId}")
