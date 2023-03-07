@@ -1,17 +1,19 @@
 package com.onlinemarketplace.marketplace.exception;
 
+import org.bson.types.ObjectId;
+
 public class ResourceNotFoundException extends RuntimeException {
 
 	private String resourceName;
 	private String fieldName;
-	private String fieldValue;
+	private ObjectId fieldValue;
 	
 	
-	 public ResourceNotFoundException(String resourceName, String fieldName, String fieldValue) {
-		 super(String.format("%s not found with %s : '%s'", resourceName, fieldName, fieldValue)); // user not found with id : 1
+	 public ResourceNotFoundException(String resourceName, String fieldName, ObjectId objectId) {
+		 super(String.format("%s not found with %s : '%s'", resourceName, fieldName, objectId)); // user not found with id : 1
 		         this.resourceName = resourceName;
 		         this.fieldName = fieldName;
-		         this.fieldValue = fieldValue;
+		         this.fieldValue = objectId;
 		     }
 
 
@@ -35,12 +37,12 @@ public class ResourceNotFoundException extends RuntimeException {
 	}
 
 
-	public String getFieldValue() {
+	public ObjectId getFieldValue() {
 		return fieldValue;
 	}
 
 
-	public void setFieldValue(String fieldValue) {
+	public void setFieldValue(ObjectId fieldValue) {
 		this.fieldValue = fieldValue;
 	}
 

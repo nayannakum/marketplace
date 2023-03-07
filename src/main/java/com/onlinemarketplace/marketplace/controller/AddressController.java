@@ -3,6 +3,7 @@ package com.onlinemarketplace.marketplace.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,32 +36,31 @@ public class AddressController {
 	
 	
 	@GetMapping("/users/{userId}/addresses")
-	public  ResponseEntity <List<AddressDto>> getAllAddressesByUserId(@PathVariable String userId) {
+	public  ResponseEntity <List<AddressDto>> getAllAddressesByUserId(@PathVariable ObjectId userId) {
 		
 		//find user and if not throw exception
-		
 	    return new ResponseEntity<List<AddressDto>>(addressService.findByUserId(userId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/users/{userId}/addresses/{addressId}")
-	public Address getAddressById(@PathVariable String userId, @PathVariable String addressId) {
-	    return addressRepository.findByIdAndUserId(addressId, userId).get(); // exception handle
-	}
-	
-	@PostMapping("/users/{userId}/addresses")
-	public Address createAddress(@PathVariable String userId, @RequestBody Address address) {
-		User user = userRepository.findById(userId).get(); // exception handle
-	    address.setUser(user); // set the user ID in the address object
-	    return addressRepository.save(address);
-	}
-	@PutMapping("/users/{userId}/addresses/{addressId}")
-	public Address updateAddress(@PathVariable String userId, @PathVariable String addressId, @RequestBody Address addressDetails) {
-	    Address address = addressRepository.findByIdAndUserId(addressId, userId).get();
-//	            .orElseThrow(() -> new ResourceNotFoundException("Address not found with id " + addressId));
-	    address.setCity(addressDetails.getCity());
-	    address.setState(addressDetails.getState());
-	    address.setPincode(addressDetails.getPincode());
-	    return addressRepository.save(address);
-	}
+//	@GetMapping("/users/{userId}/addresses/{addressId}")
+//	public Address getAddressById(@PathVariable String userId, @PathVariable String addressId) {
+//	    return addressRepository.findByIdAndUserId(addressId, userId).get(); // exception handle
+//	}
+//	
+//	@PostMapping("/users/{userId}/addresses")
+//	public Address createAddress(@PathVariable String userId, @RequestBody Address address) {
+//		User user = userRepository.findById(userId).get(); // exception handle
+//	    address.setUser(user); // set the user ID in the address object
+//	    return addressRepository.save(address);
+//	}
+//	@PutMapping("/users/{userId}/addresses/{addressId}")
+//	public Address updateAddress(@PathVariable String userId, @PathVariable String addressId, @RequestBody Address addressDetails) {
+//	    Address address = addressRepository.findByIdAndUserId(addressId, userId).get();
+////	            .orElseThrow(() -> new ResourceNotFoundException("Address not found with id " + addressId));
+//	    address.setCity(addressDetails.getCity());
+//	    address.setState(addressDetails.getState());
+//	    address.setPincode(addressDetails.getPincode());
+//	    return addressRepository.save(address);
+//	}
 	
 }

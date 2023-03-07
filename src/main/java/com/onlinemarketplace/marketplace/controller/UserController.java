@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+	
 	@ApiIgnore
 	@RequestMapping("/")
 	public void redirect(HttpServletResponse response) throws IOException {
@@ -55,7 +57,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public User getUserById(@PathVariable String id) {
+	public User getUserById(@PathVariable ObjectId id) {
 		User user = userRepository.findById(id).get();
 //		List<OrderHistory> findByUser = orderHistoryRepository.findByUser(user);
 //		user.setOrderHistories(findByUser);

@@ -24,6 +24,7 @@ public class User {
 	private List<Address> address;
 	
 	@DBRef
+	@JsonIgnore
 	private List<OrderHistory> orderHistories;
 	
 
