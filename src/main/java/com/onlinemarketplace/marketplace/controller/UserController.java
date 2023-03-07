@@ -60,21 +60,13 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public User updateUser(@PathVariable ObjectId id, @RequestBody User user) {
-		// find the user by id
-		User existingUser = userRepository.findById(id).get();
-
-		existingUser.setName(user.getName());
-		existingUser.setGender(user.getGender());
-		existingUser.setAddress(user.getAddress());
-		// save the updated user
-		User updatedUser = userRepository.save(existingUser);
-
-		return updatedUser;
+	public ResponseEntity<UserDto> updateUser(@PathVariable ObjectId id, @RequestBody UserDto userDto) {
+		return new ResponseEntity<UserDto>(userService.updateUserById(id,userDto), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public String deleteUser(@PathVariable ObjectId id) {
+		userService.deleteUserById(id);
 		userRepository.deleteById(id);
 		return "user is deleted with id : " + id;
 	}
