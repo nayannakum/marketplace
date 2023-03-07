@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.onlinemarketplace.marketplace.dto.AddressDto;
 import com.onlinemarketplace.marketplace.model.Address;
 import com.onlinemarketplace.marketplace.model.User;
 import com.onlinemarketplace.marketplace.repositories.AddressRepository;
@@ -34,10 +35,11 @@ public class AddressController {
 	
 	
 	@GetMapping("/users/{userId}/addresses")
-	public  ResponseEntity <List<Address>> getAllAddressesByUserId(@PathVariable String userId) {
+	public  ResponseEntity <List<AddressDto>> getAllAddressesByUserId(@PathVariable String userId) {
 		
 		//find user and if not throw exception
-	    return new ResponseEntity<List<Address>>(addressService.findByUserId(userId), HttpStatus.OK);
+		
+	    return new ResponseEntity<List<AddressDto>>(addressService.findByUserId(userId), HttpStatus.OK);
 	}
 	
 	@GetMapping("/users/{userId}/addresses/{addressId}")
