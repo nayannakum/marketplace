@@ -27,14 +27,6 @@ public class OrderHistoryController {
 	@Autowired
 	private OrderHistoryService orderHistoryService;
 
-//	    @GetMapping("/{userId}")
-//	    public ResponseEntity<List<OrderHistory>> getOrderHistoryByUserId(@PathVariable String userId) {
-//	        User user = userRepository.findById(userId).get();					//exception handling
-//	       List<OrderHistory> findByUser = orderHistoryRepository.findByUser(user);  // exception handling
-//	       System.out.println(findByUser);
-//	        	return new ResponseEntity<>(findByUser, HttpStatus.OK);
-//
-//	    }
 	@GetMapping("/orderHistory/{userId}")
 	public ResponseEntity<List<OrderHistoryDto>> getOrderHistoryByUserId(@PathVariable ObjectId userId) {
 		return new ResponseEntity<List<OrderHistoryDto>>(orderHistoryService.getHistory(userId), HttpStatus.OK);
