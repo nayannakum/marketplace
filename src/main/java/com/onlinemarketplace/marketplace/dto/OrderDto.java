@@ -9,20 +9,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Document
 public class OrderDto {
 
-	@Id
     private ObjectId id;
-    @DBRef
     @JsonIgnore
     private UserDto user;
-    @DBRef
     private List<ProductDto> products;
     
 	public ObjectId getId() {
 		return id;
 	}
+	
 	public void setId(ObjectId id) {
 		this.id = id;
 	}

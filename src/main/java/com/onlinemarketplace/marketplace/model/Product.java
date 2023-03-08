@@ -3,7 +3,14 @@ package com.onlinemarketplace.marketplace.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Document
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
 	@Id
@@ -13,40 +20,6 @@ public class Product {
 	
 	private String productPrice;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public String getProductPrice() {
-		return productPrice;
-	}
-
-	public void setProductPrice(String productPrice) {
-		this.productPrice = productPrice;
-	}
-
-	public Product(String id, String productName, String productPrice) {
-		super();
-		this.id = id;
-		this.productName = productName;
-		this.productPrice = productPrice;
-	}
-
-	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
 	
 }

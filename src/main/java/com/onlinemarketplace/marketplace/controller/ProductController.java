@@ -27,10 +27,10 @@ public class ProductController {
 		return productRepository.findByProductName(productName);
 	}
 	
-//	@PostMapping
-//	public Product createProduct(@RequestBody Product product) {
-//		return productRepository.save(product);
-//	}
+	@PostMapping
+	public Product createProduct(@RequestBody Product product) {
+		return productRepository.save(product);
+	}
 	
 	
 	
