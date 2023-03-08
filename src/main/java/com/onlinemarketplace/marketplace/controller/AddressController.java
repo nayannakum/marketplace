@@ -29,38 +29,37 @@ public class AddressController {
 //	private AddressRepository addressRepository;
 //	
 //	@Autowired UserRepository userRepository;
-	
-	@Autowired UserService userService;
-	
-	@Autowired AddressService addressService;
-	
-	
+
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	AddressService addressService;
+
 	@GetMapping("/users/{userId}/addresses")
-	public  ResponseEntity <List<AddressDto>> getAllAddressesByUserId(@PathVariable ObjectId userId) {
-		
-		//find user and if not throw exception
-	    return new ResponseEntity<List<AddressDto>>(addressService.findByUserId(userId), HttpStatus.OK);
+	public ResponseEntity<List<AddressDto>> getAllAddressesByUserId(@PathVariable ObjectId userId) {
+		// find user and if not throw exception
+		return new ResponseEntity<List<AddressDto>>(addressService.findByUserId(userId), HttpStatus.OK);
 	}
-	
-//	@GetMapping("/users/{userId}/addresses/{addressId}")
-//	public Address getAddressById(@PathVariable String userId, @PathVariable String addressId) {
-//	    return addressRepository.findByIdAndUserId(addressId, userId).get(); // exception handle
-//	}
-//	
-//	@PostMapping("/users/{userId}/addresses")
-//	public Address createAddress(@PathVariable String userId, @RequestBody Address address) {
-//		User user = userRepository.findById(userId).get(); // exception handle
-//	    address.setUser(user); // set the user ID in the address object
-//	    return addressRepository.save(address);
-//	}
-//	@PutMapping("/users/{userId}/addresses/{addressId}")
-//	public Address updateAddress(@PathVariable String userId, @PathVariable String addressId, @RequestBody Address addressDetails) {
-//	    Address address = addressRepository.findByIdAndUserId(addressId, userId).get();
-////	            .orElseThrow(() -> new ResourceNotFoundException("Address not found with id " + addressId));
-//	    address.setCity(addressDetails.getCity());
-//	    address.setState(addressDetails.getState());
-//	    address.setPincode(addressDetails.getPincode());
-//	    return addressRepository.save(address);
-//	}
-	
+
+	@GetMapping("/users/{userId}/addresses/{addressId}")
+	public ResponseEntity<AddressDto> getAddressById(@PathVariable ObjectId userId, @PathVariable String addressId) {
+		return new ResponseEntity<AddressDto>(addressService.findByIdandUserId(userId, addressId), HttpStatus.OK);
+
+	}
+
+	@PostMapping("/users/{userId}/addresses")
+	public ResponseEntity<AddressDto> createAddress(@PathVariable ObjectId userId, @RequestBody AddressDto addressDto) {
+		return new ResponseEntity<AddressDto>(addressService.createNewAddressWithUser(userId, addressDto),
+				HttpStatus.OK);
+	}
+
+	@PutMapping("/users/{userId}/addresses/{addressId}")
+	public ResponseEntity<AddressDto> updateAddress(@PathVariable ObjectId userId, @PathVariable String addressId,
+			@RequestBody AddressDto addressDetails) {
+
+		return new ResponseEntity<AddressDto>(
+				addressService.updateAddressByUserAndAddressId(userId, addressDetails, addressId), HttpStatus.OK);
+	}
+
 }

@@ -38,8 +38,44 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	public AddressDto mapToDto(Address address) {
-
 		return mapper.map(address, AddressDto.class);
 	}
 
+	@Override
+	public AddressDto findByIdandUserId(ObjectId userId, String addressId) {
+		Address address = addressRepository.findByIdAndUserId(addressId, userId).orElseThrow(() -> new ResourceNotFoundException("address", "id", userId));
+		return mapper.map(address, AddressDto.class);
+	}
+
+	@Override
+	public AddressDto createNewAddressWithUser(ObjectId userId, AddressDto addressDto) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("user", "id", userId));
+		Address address = mapper.map(addressDto, Address.class);
+		user.getAddress().add(address);
+		return mapper.map(address, AddressDto.class);
+	}
+
+	@Override
+	public AddressDto updateAddressByUserAndAddressId(ObjectId userId, AddressDto addressDetails, String addressId) {
+		Address address = addressRepository.findByIdAndUserId(addressId, userId).orElseThrow(()->new ResourceNotFoundException("address", "id", userId));
+		  address.setCity(addressDetails.getCity());
+		    address.setState(addressDetails.getState());
+		    address.setPincode(addressDetails.getPincode());
+		    Address updatedAddress = addressRepository.save(address);
+		return mapper.map(updatedAddress, AddressDto.class);
+	}
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
