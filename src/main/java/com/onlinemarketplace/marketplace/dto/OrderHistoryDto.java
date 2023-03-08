@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+@Data
 public class OrderHistoryDto {
 
 	private ObjectId id;
@@ -17,28 +19,6 @@ public class OrderHistoryDto {
 	private UserDto user;
 	private List<OrderDto> orders = new ArrayList<OrderDto>();
 
-	public ObjectId getId() {
-		return id;
-	}
-
-	public void setId(ObjectId id) {
-		this.id = id;
-	}
-
-	public UserDto getUser() {
-		return user;
-	}
-
-	public void setUser(UserDto user) {
-		this.user = user;
-	}
-
-	public List<OrderDto> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<OrderDto> orders) {
-		this.orders = orders;
-	}
+	
 
 }
