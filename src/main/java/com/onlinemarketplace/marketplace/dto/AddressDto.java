@@ -8,10 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Document
 public class AddressDto implements Serializable {
 
-	@Id
 	private String id;
 
 	private String city;
@@ -19,8 +17,6 @@ public class AddressDto implements Serializable {
 	private String state;
 
 	private String pincode;
-
-	@DBRef
 	@JsonIgnore
 	private UserDto user;
 

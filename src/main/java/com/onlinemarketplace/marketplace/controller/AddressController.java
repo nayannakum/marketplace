@@ -38,7 +38,6 @@ public class AddressController {
 
 	@GetMapping("/users/{userId}/addresses")
 	public ResponseEntity<List<AddressDto>> getAllAddressesByUserId(@PathVariable ObjectId userId) {
-		// find user and if not throw exception
 		return new ResponseEntity<List<AddressDto>>(addressService.findByUserId(userId), HttpStatus.OK);
 	}
 
