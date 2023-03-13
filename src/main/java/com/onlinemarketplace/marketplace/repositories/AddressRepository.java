@@ -22,4 +22,7 @@ public interface AddressRepository extends MongoRepository<Address, String> {
     @Query("{'id': ?0, 'user.id': ?1}")
     Optional<Address> findByIdAndUserId(String addressId, ObjectId userId);
     
+    
+    @Query("{ 'user.$email' : ?0 }")
+    List<Address> findByUserEmail(String email);
 }

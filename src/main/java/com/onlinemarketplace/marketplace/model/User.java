@@ -1,5 +1,6 @@
 package com.onlinemarketplace.marketplace.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -24,15 +25,21 @@ public class User {
 	@Id
 	private ObjectId id;
 	
-	private String name;
+	private String firstName;
+	
+	private String lastName;
+	
+	private String email;
 
 	private String gender;
 	
 	@DBRef
-	private List<Address> address;
+	@JsonIgnore
+	private List<Address> address = new ArrayList<>();
 	
 	@DBRef
 	@JsonIgnore
 	private List<OrderHistory> orderHistories;
+	
 	
 }

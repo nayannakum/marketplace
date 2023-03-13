@@ -1,11 +1,13 @@
 package com.onlinemarketplace.marketplace.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.session.NonUniqueSessionRepositoryException;
 import org.springframework.stereotype.Service;
 
 import com.onlinemarketplace.marketplace.payloads.AddressDto;
@@ -50,7 +52,13 @@ public class AddressServiceImpl implements AddressService {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("user", "id", userId));
 		Address address = mapper.map(addressDto, Address.class);
+		address.setUser(user);
+		if (user.getAddress() == null) {
+		    user.setAddress(new ArrayList<>());
+		}
 		user.getAddress().add(address);
+		userRepository.save(user);
+		addressRepository.save(address);
 		return mapper.map(address, AddressDto.class);
 	}
 
@@ -64,6 +72,20 @@ public class AddressServiceImpl implements AddressService {
 		return mapper.map(updatedAddress, AddressDto.class);
 	}
 
+	@Override
+	public AddressDto createNewAddressWithEmail(String emailId, AddressDto addressDto) {
+		User user = userRepository.findByEmail(emailId)
+				.orElseThrow(() -> new ResourceNotFoundException("user", emailId));
+		Address address = mapper.map(addressDto, Address.class);
+		address.setUser(user);
+		if (user.getAddress() == null) {
+		    user.setAddress(new ArrayList<>());
+		}
+		user.getAddress().add(address);
+		userRepository.save(user);
+		addressRepository.save(address);
+		return mapper.map(address, AddressDto.class);
+	}
 
 }
 

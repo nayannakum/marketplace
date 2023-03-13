@@ -2,11 +2,13 @@ package com.onlinemarketplace.marketplace.payloads;
 
 import java.io.Serializable;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 @Data
-public class AddressDto implements Serializable {
+public class AddressDto {
 
 	private String id;
 
@@ -16,6 +18,7 @@ public class AddressDto implements Serializable {
 
 	private String pincode;
 	@JsonIgnore
+	@DBRef
 	private UserDto user;
 
 	

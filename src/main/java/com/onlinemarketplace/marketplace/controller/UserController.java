@@ -50,7 +50,11 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDto>getUserById(@PathVariable ObjectId id) {
-		return new ResponseEntity<UserDto>(userService.getUsreById(id), HttpStatus.OK);
+		return new ResponseEntity<UserDto>(userService.getUserById(id), HttpStatus.OK);
+	}
+	@GetMapping("email/{email}")
+	public ResponseEntity<UserDto>getUserByEmail(@PathVariable String email) {
+		return new ResponseEntity<UserDto>(userService.getUserByEmail(email), HttpStatus.OK);
 	}
 
 	@PutMapping("/{id}")

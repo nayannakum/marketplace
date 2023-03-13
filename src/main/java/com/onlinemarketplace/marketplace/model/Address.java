@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address implements Serializable {
+public class Address {
 
 	@Id
 	private String id;

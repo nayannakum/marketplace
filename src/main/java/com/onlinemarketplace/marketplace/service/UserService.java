@@ -8,10 +8,12 @@ public interface UserService {
 
 	UserDto createUser(UserDto userDto);
 
-	UserDto getUsreById(ObjectId id);
+	UserDto getUserById(ObjectId id);
 
 	UserDto updateUserById(ObjectId id, UserDto userDto);
 
 	UserDto deleteUserById(ObjectId id);
+
+	UserDto getUserByEmail(String email);
 
 }

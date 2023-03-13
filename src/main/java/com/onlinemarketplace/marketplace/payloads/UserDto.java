@@ -12,14 +12,18 @@ import lombok.Data;
 public class UserDto {
 
 	private ObjectId id;
+
+	private String firstName;
+
+	private String lastName;
 	
-	private String name;
+	private String email;
 
 	private String gender;
-	
+	@JsonIgnore
 	private List<AddressDto> address;
-	
+
 	@JsonIgnore
 	private List<OrderHistoryDto> orderHistories;
-	
+
 }

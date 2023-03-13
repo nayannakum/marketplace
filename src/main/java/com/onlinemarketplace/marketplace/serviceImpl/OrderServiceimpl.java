@@ -7,9 +7,11 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.onlinemarketplace.marketplace.payloads.OrderDto;
+import com.onlinemarketplace.marketplace.exception.MarketPlaceException;
 import com.onlinemarketplace.marketplace.exception.ResourceNotFoundException;
 import com.onlinemarketplace.marketplace.model.Order;
 import com.onlinemarketplace.marketplace.model.OrderHistory;
@@ -36,11 +38,15 @@ public class OrderServiceimpl implements OrderService {
 
 	@Override
 	public OrderDto createOrder(ObjectId userId, OrderDto orderDto) {
+		
+		
 
 		// Find the user by ID and set it in the order object
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("user", "id", userId));
-		
+		if(user.getAddress()==null) {
+			throw new MarketPlaceException(HttpStatus.BAD_REQUEST,"please enter user address first");
+		}
 		Order order = mapper.map(orderDto, Order.class);
 
 		order.setUser(user);

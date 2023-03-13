@@ -16,6 +16,9 @@ public interface AddressService {
 
 	AddressDto updateAddressByUserAndAddressId(ObjectId userId, AddressDto addressDetails, String addressId);
 
-	
+
+	AddressDto createNewAddressWithEmail(String emailId, AddressDto addressDto);
+
+
 
 }

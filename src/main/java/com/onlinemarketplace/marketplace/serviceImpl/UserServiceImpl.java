@@ -27,30 +27,30 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto createUser(UserDto userDto) {
 		User user = mapper.map(userDto, User.class);
-		if (user.getAddress()==null) {
-			throw new RuntimeException("please enter the address");
-		}
-		List<Address> addresses = user.getAddress();
-		addresses.stream().forEach(address -> addressRepository.save(address));
-		
 		userRepository.save(user);
 		return	mapper.map(user, UserDto.class);
 	}
 
 
 	@Override
-	public UserDto getUsreById(ObjectId id) {
+	public UserDto getUserById(ObjectId id) {
 		User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("user", "id", id));
 		return	mapper.map(user, UserDto.class);
 	}
 
+	@Override
+	public UserDto getUserByEmail(String email) {
+		User user = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("user", email));
+		return	mapper.map(user, UserDto.class);
+	}
 
 	@Override
 	public UserDto updateUserById(ObjectId id, UserDto userDto) {
 		User existingUser = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User", "id", id));
 		
 		//set value from dto
-		existingUser.setName(userDto.getName());
+		existingUser.setFirstName(userDto.getFirstName());
+		existingUser.setLastName(userDto.getLastName());
 		existingUser.setGender(userDto.getGender());
 
 		// save the updated user
