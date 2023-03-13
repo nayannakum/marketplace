@@ -1,8 +1,6 @@
 package com.onlinemarketplace.marketplace.controller;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,12 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.onlinemarketplace.marketplace.dto.UserDto;
-import com.onlinemarketplace.marketplace.model.Address;
-import com.onlinemarketplace.marketplace.model.OrderHistory;
-import com.onlinemarketplace.marketplace.model.User;
+import com.onlinemarketplace.marketplace.payloads.UserDto;
 import com.onlinemarketplace.marketplace.repositories.AddressRepository;
-import com.onlinemarketplace.marketplace.repositories.OrderHistoryRepository;
 import com.onlinemarketplace.marketplace.repositories.UserRepository;
 import com.onlinemarketplace.marketplace.service.UserService;
 

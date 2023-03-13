@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.onlinemarketplace.marketplace.dto.UserDto;
+import com.onlinemarketplace.marketplace.payloads.UserDto;
 import com.onlinemarketplace.marketplace.exception.ResourceNotFoundException;
 import com.onlinemarketplace.marketplace.model.Address;
 import com.onlinemarketplace.marketplace.model.User;

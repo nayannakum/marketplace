@@ -1,4 +1,4 @@
-package com.onlinemarketplace.marketplace.dto;
+package com.onlinemarketplace.marketplace.payloads;
 
 import java.util.List;
 

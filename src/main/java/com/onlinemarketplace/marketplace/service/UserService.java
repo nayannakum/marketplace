@@ -2,7 +2,7 @@ package com.onlinemarketplace.marketplace.service;
 
 import org.bson.types.ObjectId;
 
-import com.onlinemarketplace.marketplace.dto.UserDto;
+import com.onlinemarketplace.marketplace.payloads.UserDto;
 
 public interface UserService {
 

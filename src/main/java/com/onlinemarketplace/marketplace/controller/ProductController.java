@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.onlinemarketplace.marketplace.dto.ProductDto;
-import com.onlinemarketplace.marketplace.model.Product;
-import com.onlinemarketplace.marketplace.repositories.ProductRepository;
+import com.onlinemarketplace.marketplace.payloads.ProductDto;
 import com.onlinemarketplace.marketplace.service.ProductService;
 
 @RestController

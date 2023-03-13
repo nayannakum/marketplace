@@ -3,9 +3,8 @@ package com.onlinemarketplace.marketplace.serviceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
-import com.onlinemarketplace.marketplace.dto.ProductDto;
+import com.onlinemarketplace.marketplace.payloads.ProductDto;
 import com.onlinemarketplace.marketplace.exception.ResourceNotFoundException;
 import com.onlinemarketplace.marketplace.model.Product;
 import com.onlinemarketplace.marketplace.repositories.ProductRepository;

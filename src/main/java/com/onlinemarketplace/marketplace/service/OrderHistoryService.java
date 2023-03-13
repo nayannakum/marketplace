@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
-import com.onlinemarketplace.marketplace.dto.OrderHistoryDto;
-import com.onlinemarketplace.marketplace.model.OrderHistory;
+import com.onlinemarketplace.marketplace.payloads.OrderHistoryDto;
 
 public interface OrderHistoryService {
 

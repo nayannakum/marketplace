@@ -1,7 +1,6 @@
 package com.onlinemarketplace.marketplace.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.onlinemarketplace.marketplace.dto.AddressDto;
-import com.onlinemarketplace.marketplace.model.Address;
-import com.onlinemarketplace.marketplace.model.User;
-import com.onlinemarketplace.marketplace.repositories.AddressRepository;
-import com.onlinemarketplace.marketplace.repositories.UserRepository;
+import com.onlinemarketplace.marketplace.payloads.AddressDto;
 import com.onlinemarketplace.marketplace.service.AddressService;
 import com.onlinemarketplace.marketplace.service.UserService;
 

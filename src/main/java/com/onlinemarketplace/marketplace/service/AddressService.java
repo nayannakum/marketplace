@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
-import com.onlinemarketplace.marketplace.dto.AddressDto;
-import com.onlinemarketplace.marketplace.model.Address;
+import com.onlinemarketplace.marketplace.payloads.AddressDto;
+
 public interface AddressService {
 
 	List<AddressDto> findByUserId(ObjectId userId);

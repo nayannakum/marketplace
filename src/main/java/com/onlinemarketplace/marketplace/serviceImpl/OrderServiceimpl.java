@@ -9,7 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.onlinemarketplace.marketplace.dto.OrderDto;
+import com.onlinemarketplace.marketplace.payloads.OrderDto;
 import com.onlinemarketplace.marketplace.exception.ResourceNotFoundException;
 import com.onlinemarketplace.marketplace.model.Order;
 import com.onlinemarketplace.marketplace.model.OrderHistory;

@@ -1,6 +1,6 @@
 package com.onlinemarketplace.marketplace.service;
 
-import com.onlinemarketplace.marketplace.dto.ProductDto;
+import com.onlinemarketplace.marketplace.payloads.ProductDto;
 
 public interface ProductService {
 

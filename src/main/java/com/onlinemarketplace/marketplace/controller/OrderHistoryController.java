@@ -1,6 +1,5 @@
 package com.onlinemarketplace.marketplace.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -12,12 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.onlinemarketplace.marketplace.dto.OrderHistoryDto;
-import com.onlinemarketplace.marketplace.model.Order;
-import com.onlinemarketplace.marketplace.model.OrderHistory;
-import com.onlinemarketplace.marketplace.model.User;
-import com.onlinemarketplace.marketplace.repositories.OrderHistoryRepository;
-import com.onlinemarketplace.marketplace.repositories.UserRepository;
+import com.onlinemarketplace.marketplace.payloads.OrderHistoryDto;
 import com.onlinemarketplace.marketplace.service.OrderHistoryService;
 
 @RestController

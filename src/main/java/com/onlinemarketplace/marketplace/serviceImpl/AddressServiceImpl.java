@@ -1,7 +1,6 @@
 package com.onlinemarketplace.marketplace.serviceImpl;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
@@ -9,8 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.onlinemarketplace.marketplace.dto.AddressDto;
-import com.onlinemarketplace.marketplace.dto.UserDto;
+import com.onlinemarketplace.marketplace.payloads.AddressDto;
 import com.onlinemarketplace.marketplace.exception.ResourceNotFoundException;
 import com.onlinemarketplace.marketplace.model.Address;
 import com.onlinemarketplace.marketplace.model.User;
